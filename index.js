@@ -1,8 +1,8 @@
 const mineflayer=require('mineflayer')
 const {pathfinder,Movements}=require('mineflayer-pathfinder')
-
+const spawn=require('./spawn')
 const follow=require('./follow')
-
+const attack=require('./attack')
 
 const bot=mineflayer.createBot({
   host:'localhost',
@@ -16,20 +16,15 @@ bot.loadPlugin(pathfinder)
 bot.once('spawn',async()=>{
   const movements=new Movements(bot)
   movements.allowParkour=true
-  movements.canDig=false
   bot.pathfinder.setMovements(movements)
 
-  try{
-    await spawn(bot)
+  await spawn(bot)
 
-    console.log('Reached emerald block')
+  follow(bot,'BetrayedChair284')
 
+  attack(bot,()=>{
     follow(bot,'BetrayedChair284')
-
-
-  }catch(err){
-    console.log(err)
-  }
+  })
 })
 
 bot.on('error',console.log)

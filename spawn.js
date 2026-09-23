@@ -1,16 +1,12 @@
 const {goals:{GoalBlock}}=require('mineflayer-pathfinder')
 
 async function spawn(bot){
-  let block=null
+  const block=bot.findBlock({
+    matching:b=>b.name==='emerald_block',
+    maxDistance:64
+  })
 
-  while(!block){
-    block=bot.findBlock({
-      matching:b=>b&&b.name==='emerald_block',
-      maxDistance:64
-    })
-
-    if(!block)await new Promise(r=>setTimeout(r,1000))
-  }
+  if(!block)return
 
   const p=block.position.offset(0,1,0)
 
