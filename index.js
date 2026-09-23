@@ -20,7 +20,7 @@ bot.once('spawn',async()=>{
   bot.pathfinder.setMovements(movements)
 
   try{
-   
+    await spawn(bot)
 
     console.log('Reached emerald block')
 
